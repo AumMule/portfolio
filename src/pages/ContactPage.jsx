@@ -10,7 +10,7 @@ const ContactPage = () => {
     message: '',
   });
 
-  // State to manage submission status (e.g., 'idle', 'sending', 'success', 'error')
+  // State to manage submission status
   const [status, setStatus] = useState('idle');
 
   const handleChange = (e) => {
@@ -21,21 +21,32 @@ const ContactPage = () => {
     }));
   };
 
+  // UPDATED handleSubmit function
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('sending');
 
-    // ** IMPORTANT: Replace this with a real endpoint using a service like Formspree or EmailJS **
-    // For demonstration, we'll just simulate a delay and success.
-    console.log('Form Data Submitted:', formData);
-    await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate network request
+    try {
+      const response = await fetch('https://formspree.io/f/xldpnzgp', { // <-- PASTE YOUR URL HERE
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
 
-    // On success:
-    setStatus('success');
-    setFormData({ name: '', email: '', subject: '', message: '' }); // Clear the form
-    
-    // To handle errors, you would setStatus('error');
+      if (response.ok) {
+        setStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      setStatus('error');
+    }
   };
+
 
   return (
     <section className="min-h-screen flex items-center justify-center py-20 px-4 text-white">
@@ -46,7 +57,7 @@ const ContactPage = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Column 1: Contact Form */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
@@ -115,14 +126,14 @@ const ContactPage = () => {
           </motion.div>
 
           {/* Column 2: Illustration */}
-          <motion.div 
+          <motion.div
             className="flex items-center justify-center"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <img 
-              src="public/images/contact.png" 
+            <img
+              src="public/images/contact.png"
               alt="Contact illustration"
               className="w-full max-w-md"
             />
