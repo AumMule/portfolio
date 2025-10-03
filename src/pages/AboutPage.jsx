@@ -54,7 +54,7 @@ const AboutPage = () => {
           {/* Column 2: Illustration */}
           <div>
             <img 
-              src="https://storyset.com/illustration/web-developer/pana" 
+              src="public/images/about.png" 
               alt="A developer coding at a desk"
               className="w-full max-w-md"
             />

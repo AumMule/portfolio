@@ -74,7 +74,7 @@ const HomePage = () => {
             >
               <div className="w-80 h-80 bg-purple-900/50 rounded-full flex items-center justify-center">
                 <img
-                  src="/images/avatar.png"
+                  src="/images/Hero.png"
                   alt="Profile"
                   className="w-72 h-72 object-cover rounded-full"
                 />

@@ -122,7 +122,7 @@ const ContactPage = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <img 
-              src="https://storyset.com/illustration/contact-us/pana" 
+              src="public/images/contact.png" 
               alt="Contact illustration"
               className="w-full max-w-md"
             />

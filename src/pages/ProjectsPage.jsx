@@ -2,28 +2,23 @@ import React from 'react';
 
 const projects = [
   {
-    title: "Chatify",
+    title: "Recipe App",
     description:
-      "Personal Chat Room or Workspace to share resources and hangout with friends. Built with React.js, Material-UI, and Firebase. Features include realtime messaging and image sharing.",
-    image: "/images/chatify.png", // replace with your project image
+      "Responsive web-based Recipe App built with React.js, Tailwind CSS, and API integration. Features include search, bookmarking, dark mode with localStorage, skeleton loaders, and error handling for a smooth user experience.",
+    image: "public/images/recipe.png",
   },
   {
-    title: "Bits-of-Code",
+    title: "Netflix Clone",
     description:
-      "Personal blog page built with Next.js and Tailwind CSS. Takes content from markdown files and renders it using Next.js. Supports dark mode and easy blog writing.",
-    image: "/images/bits-of-code.png",
+      "Movie streaming platform inspired by Netflix, built with React.js, Tailwind CSS, TMDB API, and Firebase. Features user authentication, watchlist/favorites, search, categories, skeleton loaders, and deployment on Firebase Hosting.",
+    image: "public/images/netflix.png", 
   },
-  {
-    title: "Editor.io",
-    description:
-      "Online code and markdown editor built with React.js. Supports HTML, CSS, and JS code with instant preview. Great for building README files and small projects.",
-    image: "/images/editorio.png",
-  },
+  
 ];
 
 const ProjectsPage = () => {
   return (
-    <section className=" text-white py-16 px-6 md:px-12">
+    <section className="text-white py-16 px-6 md:px-12">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold">
           My Recent <span className="text-purple-400">Works</span>
