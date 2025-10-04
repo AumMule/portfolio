@@ -5,15 +5,16 @@ const projects = [
     title: "Recipe App",
     description:
       "Responsive web-based Recipe App built with React.js, Tailwind CSS, and API integration. Features include search, bookmarking, dark mode with localStorage, skeleton loaders, and error handling for a smooth user experience.",
-    image: "public/images/recipe.png",
+    image: "/images/recipe.png",
+    link: "https://recipe-app-five-eta.vercel.app/", // 🔗 Replace with actual project link
   },
   {
     title: "Netflix Clone",
     description:
       "Movie streaming platform inspired by Netflix, built with React.js, Tailwind CSS, TMDB API, and Firebase. Features user authentication, watchlist/favorites, search, categories, skeleton loaders, and deployment on Firebase Hosting.",
-    image: "public/images/netflix.png", 
+    image: "/images/netflix.png",
+    link: "https://netflix-clone-eight-beige-29.vercel.app/", // 🔗 Replace with actual project link
   },
-  
 ];
 
 const ProjectsPage = () => {
@@ -28,9 +29,12 @@ const ProjectsPage = () => {
 
       <div className="grid md:grid-cols-3 gap-8">
         {projects.map((project, idx) => (
-          <div
+          <a
             key={idx}
-            className="bg-gray-800 rounded-2xl p-6 flex flex-col items-center shadow-lg hover:shadow-purple-500/40 transition-shadow duration-300"
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-gray-800 rounded-2xl p-6 flex flex-col items-center shadow-lg hover:shadow-purple-500/40 transition-shadow duration-300 hover:scale-105 transform"
           >
             <img
               src={project.image}
@@ -38,8 +42,8 @@ const ProjectsPage = () => {
               className="w-full h-48 object-cover rounded-lg mb-4"
             />
             <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-            <p className="text-gray-300 text-sm">{project.description}</p>
-          </div>
+            <p className="text-gray-300 text-sm text-center">{project.description}</p>
+          </a>
         ))}
       </div>
     </section>
