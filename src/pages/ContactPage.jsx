@@ -133,7 +133,7 @@ const ContactPage = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <img
-              src="public/images/contact.png"
+              src="/images/contact.png"
               alt="Contact illustration"
               className="w-full max-w-md"
             />
