@@ -1,8 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
+<<<<<<< HEAD
 import LogoLoop from '../components/LogoLoop.jsx'; 
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/si';
+=======
+>>>>>>> 98e0f3b9f3cc54d3af25e3df484c59df7c933259
 
 // Import all the section components for the homepage
 import AboutSection from '../components/AboutSection.jsx';
