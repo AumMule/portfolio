@@ -3,13 +3,11 @@ import { motion } from 'framer-motion';
 
 const projects = [
   {
-<<<<<<< HEAD
     title: "ParkHub",
     description:
       "A modern and responsive portfolio website project built with React and Tailwind CSS to showcase skills and projects in a visually appealing manner.",
     image: "/images/parkhub.png",
     link: "https://park-hub-beige.vercel.app/",
-    
   },
   {
     title: "Shortify",
@@ -17,59 +15,35 @@ const projects = [
       "A React-based text summarizer that quickly converts long paragraphs into clear, concise summaries, helping users understand key points faster and save time.",
     image: "/images/summarizer.png",
     link: "https://summarizer-app-nine.vercel.app/",
-    
   },
   {
     title: "Recipe App",
     description:
-      "A responsive web-based recipe app built with React and Tailwind CSS, featuring recipe search via API, bookmarking, dark mode, and a smooth user experience.",
-=======
-    title: "Recipe App",
-    description:
-      "Responsive web-based Recipe App built with React.js, Tailwind CSS, and API integration. Features include search, bookmarking, dark mode with localStorage, skeleton loaders, and error handling for a smooth user experience.",
->>>>>>> 98e0f3b9f3cc54d3af25e3df484c59df7c933259
+      "Responsive web-based Recipe App built with React.js, Tailwind CSS, API integration, bookmarking, dark mode, skeleton loaders, and error handling.",
     image: "/images/recipe.png",
     link: "https://recipe-app-five-eta.vercel.app/",
   },
   {
     title: "Netflix Clone",
     description:
-<<<<<<< HEAD
-      "A Netflix-inspired movie streaming platform built with React and Tailwind CSS, featuring TMDB API integration, authentication, watchlists, and search.",
-=======
-      "Movie streaming platform inspired by Netflix, built with React.js, Tailwind CSS, TMDB API, and Firebase. Features user authentication, watchlist/favorites, search, categories, skeleton loaders, and deployment on Firebase Hosting.",
->>>>>>> 98e0f3b9f3cc54d3af25e3df484c59df7c933259
+      "Movie streaming platform inspired by Netflix, built with React.js, Tailwind CSS, TMDB API, and Firebase. Features authentication, watchlist, search, and categories.",
     image: "/images/netflix.png",
     link: "https://netflix-clone-eight-beige-29.vercel.app/",
   },
   {
     title: "Kite Battle Game",
     description:
-<<<<<<< HEAD
-      "An interactive 3D web-based Kite Battle Game built with HTML, CSS, and JavaScript, featuring real-time controls, leaderboards, customization, and responsive gameplay.",
-    image: "/images/kite-battle.png",
-    link: "https://github.com/Kadam-Atharva/Kite-Battle",
-  },
-  
-  {
-    title: "AuraMax",
-    description:
-      "A modern and responsive portfolio website project built with React and Tailwind CSS to showcase skills and projects in a visually appealing manner.",
-    image: "/images/kanban.png", // Make sure to add your image
-    link: "https://github.com/AumMule/Kanban-Board", // Add the live URL for your ParkHub project
-=======
-      "An interactive 3D web-based Kite Battle Game built with HTML, CSS, and JavaScript. Features include real-time kite control, leaderboard system, customizable themes, and responsive design for smooth gameplay across all devices.",
+      "An interactive 3D web-based Kite Battle Game built with HTML, CSS, and JavaScript. Features real-time controls, leaderboard system, and responsive gameplay.",
     image: "/images/kite-battle.png",
     link: "https://kite-battle.vercel.app/",
   },
   {
-    title: "ParkHub",
+    title: "Kanban Board",
     description:
-      "A modern and responsive portfolio website project built with React and Tailwind CSS to showcase skills and projects in a visually appealing manner.",
-    image: "/images/parkhub.png", // Make sure to add your image
-    link: "#", // Add the live URL for your ParkHub project
->>>>>>> 98e0f3b9f3cc54d3af25e3df484c59df7c933259
-    status: "In Progress", // New status property
+      "A Kanban-style task management app built with React. Supports drag-and-drop workflow and clean UI for productivity.",
+    image: "/images/kanban.png",
+    link: "https://github.com/AumMule/Kanban-Board",
+    status: "In Progress",
   },
 ];
 
@@ -118,11 +92,10 @@ const ProjectsPage = () => {
 
       {/* Projects Grid */}
       <motion.div
-<<<<<<< HEAD
-        className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8" // Restored to 3 columns on medium screens and up
-=======
-        className="grid grid-cols-1 md:grid-cols-3 gap-8" // Restored to 3 columns on medium screens and up
->>>>>>> 98e0f3b9f3cc54d3af25e3df484c59df7c933259
+
+        className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8" 
+        
+
         variants={containerVariants}
         initial="hidden"
         whileInView="show"
