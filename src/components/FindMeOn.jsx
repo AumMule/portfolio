@@ -54,6 +54,14 @@ const FindMeOn = () => {
           >
             <FaInstagram />
           </a>
+          <a
+            href="https://www.linkedin.com/in/aummule/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-4xl md:text-5xl hover:text-purple-400 transition-colors duration-300"
+          >
+            <FaLinkedin />
+          </a>
         </div>
       </div>
     </section>

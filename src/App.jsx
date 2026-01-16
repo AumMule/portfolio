@@ -12,6 +12,9 @@ import ProjectsPage from './pages/ProjectsPage.jsx';
 import AboutPage from './pages/AboutPage.jsx';
 import ContactPage from './pages/ContactPage.jsx';
 import Navbar from './components/Navbar.jsx';
+import ScrollToTop from './components/ScrollToTop.jsx';
+
+import ReportIT from "./pages/ReportIT";
 
 function App() {
   const navigate = useNavigate();
@@ -25,7 +28,7 @@ function App() {
 
   return (
     // 2. Main container is now relative for positioning
-    <div className="min-h-screen bg-gray-900 relative">
+    <div className="min-h-screen p-8 bg-gray-900 relative">
       
       {/* 3. The Squares background is now a global, bottom-layer element */}
       <div className="fixed top-0 left-0 w-full h-full z-0">
@@ -40,11 +43,13 @@ function App() {
 
       {/* 4. All page content will render on top of the background */}
       <main className="relative z-10">
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/projects/reportit" element={<ReportIT />} />
         </Routes>
       </main>
       <Navbar />
