@@ -14,7 +14,7 @@ import ContactPage from './pages/ContactPage.jsx';
 import Navbar from './components/Navbar.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
 
-import ReportIT from "./pages/ReportIT";
+import ReportIT from "./pages/ReportIT.jsx";
 
 function App() {
   const navigate = useNavigate();
