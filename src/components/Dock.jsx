@@ -2,8 +2,9 @@
 
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { Children, cloneElement, useEffect, useRef, useState } from 'react';
+import { VscHome, VscCode, VscArchive, VscMail } from 'react-icons/vsc';
 
-// ---------------- Dock Item (No changes needed) ----------------
+// ---------------- Dock Item ----------------
 function DockItem({ children, className = '', onClick, mouseX, spring, distance, magnification, baseItemSize }) {
   const ref = useRef(null);
   const isHovered = useMotionValue(0);
@@ -25,7 +26,7 @@ function DockItem({ children, className = '', onClick, mouseX, spring, distance,
       onFocus={() => isHovered.set(1)}
       onBlur={() => isHovered.set(0)}
       onClick={onClick}
-      className={`relative inline-flex items-center justify-center text-white/60 rounded-lg bg-[#060010] border-neutral-700 border-2 shadow-md hover:shadow-xl transition-shadow duration-300 ${className}`}
+      className={`relative inline-flex items-center justify-center text-white/60 rounded-lg bg-[#060010] border-neutral-700 border-2 shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer ${className}`}
       tabIndex={0}
       role="button"
       aria-haspopup="true"
@@ -35,7 +36,7 @@ function DockItem({ children, className = '', onClick, mouseX, spring, distance,
   );
 }
 
-// ---------------- Dock Label (No changes needed) ----------------
+// ---------------- Dock Label ----------------
 function DockLabel({ children, className = '', ...rest }) {
   const { isHovered } = rest;
   const [isVisible, setIsVisible] = useState(false);
@@ -64,31 +65,42 @@ function DockLabel({ children, className = '', ...rest }) {
   );
 }
 
-// ---------------- Dock Icon (No changes needed) ----------------
+// ---------------- Dock Icon ----------------
 function DockIcon({ children, className = '' }) {
   return <div className={`flex items-center justify-center ${className}`}>{children}</div>;
 }
 
-// ---------------- Dock (Corrected) ----------------
+// ---------------- Dock ----------------
 export default function Dock({
-  items,
   className = '',
   spring = { mass: 0.1, stiffness: 150, damping: 12 },
   magnification = 70,
   distance = 200,
-  panelHeight = 64, // The height of the dock panel itself
+  panelHeight = 64,
   baseItemSize = 50
 }) {
   const mouseX = useMotionValue(Infinity);
 
-  // The problematic outer wrapper has been removed.
-  // The main container is now the fixed dock itself.
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const items = [
+    { icon: <VscHome size={28} />, label: 'Home', onClick: () => scrollToSection('home') },
+    { icon: <VscCode size={28} />, label: 'Tech Stack', onClick: () => scrollToSection('tech') },
+    { icon: <VscArchive size={28} />, label: 'Projects', onClick: () => scrollToSection('projects') },
+    { icon: <VscMail size={28} />, label: 'Contact', onClick: () => scrollToSection('contact') },
+  ];
+
   return (
     <motion.div
       onMouseMove={({ pageX }) => mouseX.set(pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={`${className} fixed z-50 bottom-4 left-1/2 transform -translate-x-1/2 flex items-end w-fit gap-4 rounded-2xl border-neutral-700 border-2 pb-2 px-4 bg-[#060010]/50 backdrop-blur-md`}
-      style={{ height: `${panelHeight}px` }} // Use the panelHeight prop directly
+      style={{ height: `${panelHeight}px` }}
       role="toolbar"
       aria-label="Application dock"
     >
