@@ -18,6 +18,8 @@ const HomePage = () => {
     message: '',
   });
   const [status, setStatus] = useState('idle');
+  const [showReportITModal, setShowReportITModal] = useState(false);
+  const [activeTab, setActiveTab] = useState('mobile');
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -76,35 +78,38 @@ const HomePage = () => {
       description:
         "A civic issue reporting platform enabling citizens to report local problems through mobile, visualize them on a map, and manage them via an admin dashboard.",
       image: "/images/reportit.png",
-      link: "/projects/reportit",
+      github: "https://github.com/AumMule/ReportIT",
+      liveUrl: null,
       featured: true,
       category: "Full-Stack",
-      tech: ["React", "Leaflet.js", "Tailwind"],
+      tech: ["React", "Leaflet.js", "React-Native", "TypeScript", "Supabase", "Expo", "Tailwind"],
     },
     {
       title: "ParkHub",
       description:
         "A modern and responsive portfolio website project built with React and Tailwind CSS to showcase skills and projects in a visually appealing manner.",
       image: "/images/ParkHub.png",
-      link: "https://park-hub-beige.vercel.app/",
+      github: "https://github.com/AumMule/ParkHub",
+      liveUrl: "https://park-hub-beige.vercel.app/",
       category: "Web Design",
-      tech: ["React", "Tailwind CSS"],
+      tech: ["React", "JavaScript", "Firebase", "QR-Code", "Toastify"],
     },
     {
       title: "Netflix Clone",
       description:
         "Movie streaming platform inspired by Netflix, built with React.js, Tailwind CSS, TMDB API, and Firebase. Features authentication, watchlist, search, and categories.",
       image: "/images/netflix.png",
-      link: "https://netflix-clone-eight-beige-29.vercel.app/",
+      github: "https://github.com/AumMule/Netflix-Clone",
+      liveUrl: "https://netflix-clone-eight-beige-29.vercel.app/",
       category: "Full-Stack",
-      tech: ["React", "Firebase", "TMDB API"],
+      tech: ["React", "Firebase", "TMDB API", "Toastify"],
     },
     {
       title: "Kite Battle Game",
       description:
         "An interactive 3D web-based Kite Battle Game built with HTML, CSS, and JavaScript. Features real-time controls, leaderboard system, and responsive gameplay.",
       image: "/images/kite-battle.png",
-      link: "https://kite-battle.vercel.app/",
+      github: "https://github.com/Kadam-Atharva/Kite-Battle",
       category: "Game Dev",
       tech: ["JavaScript", "3D Graphics"],
     },
@@ -113,7 +118,8 @@ const HomePage = () => {
       description:
         "A React-based text summarizer that quickly converts long paragraphs into clear, concise summaries, helping users understand key points faster and save time.",
       image: "/images/summarizer.png",
-      link: "https://summarizer-app-nine.vercel.app/",
+      github: "https://github.com/AumMule/Shortify",
+      liveUrl: "https://summarizer-app-nine.vercel.app/",
       category: "AI/ML",
       tech: ["React", "NLP API"],
     },
@@ -122,7 +128,8 @@ const HomePage = () => {
       description:
         "Responsive web-based Recipe App built with React.js, Tailwind CSS, API integration, bookmarking, dark mode, skeleton loaders, and error handling.",
       image: "/images/recipe.png",
-      link: "https://recipe-app-five-eta.vercel.app/",
+      github: "https://github.com/AumMule/Recipe-App",
+      liveUrl: "https://recipe-app-zeta-five.vercel.app/",
       category: "Web App",
       tech: ["React", "API Integration"],
     },
@@ -131,7 +138,8 @@ const HomePage = () => {
       description:
         "A Kanban-style task management app built with React. Supports drag-and-drop workflow and clean UI for productivity.",
       image: "/images/kanban.png",
-      link: "https://github.com/AumMule/Kanban-Board",
+      github: "https://github.com/AumMule/Kanban-Board",
+      liveUrl: null,
       status: "In Progress",
       category: "Productivity",
       tech: ["React", "Drag & Drop"],
@@ -142,6 +150,20 @@ const HomePage = () => {
   const filteredProjects = filter === "All" ? projects : projects.filter(p => p.category === filter);
   const featuredProject = projects.find(p => p.featured);
   const regularProjects = projects.filter(p => !p.featured);
+
+  // ReportIT Modal Data
+  const reportITMobileScreens = [
+    { src: "/images/reportIT/mobile-lockpage.png", label: "Authentication Layer", desc: "Secure entry with credential validation" },
+    { src: "/images/reportIT/mobile-homepage.png", label: "Command Center", desc: "Geolocation-enabled reporting dashboard" },
+    { src: "/images/reportIT/mobile-reportmodal.png", label: "Incident Capture", desc: "Real-time issue documentation with GPS" },
+  ];
+
+  const reportITAdminScreens = [
+    { src: "/images/reportIT/admin-login.png", label: "Administrative Gateway", desc: "Role-based access control" },
+    { src: "/images/reportIT/admin-home.png", label: "System Overview", desc: "Real-time metrics and status monitoring" },
+    { src: "/images/reportIT/admin-dashboard.png", label: "Data Intelligence", desc: "Analytics and geographic visualization" },
+    { src: "/images/reportIT/admin-report.png", label: "Case Management", desc: "Priority-based issue resolution" },
+  ];
 
   return (
     <div className="relative overflow-hidden">
@@ -482,8 +504,8 @@ const HomePage = () => {
                 key={cat}
                 onClick={() => setFilter(cat)}
                 className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${filter === cat
-                    ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/50'
-                    : 'bg-zinc-900 text-gray-400 hover:bg-zinc-800 border border-gray-800'
+                  ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/50'
+                  : 'bg-zinc-900 text-gray-400 hover:bg-zinc-800 border border-gray-800'
                   }`}
               >
                 {cat}
@@ -500,10 +522,7 @@ const HomePage = () => {
               viewport={{ once: true }}
               className="mb-16"
             >
-              <a
-                href={featuredProject.link}
-                className="group relative block overflow-hidden rounded-3xl bg-zinc-900 border border-gray-800 hover:border-purple-500/50 transition-all duration-500"
-              >
+              <div className="group relative block overflow-hidden rounded-3xl bg-zinc-900 border border-gray-800 hover:border-purple-500/50 transition-all duration-500">
                 <div className="grid md:grid-cols-2 gap-0">
                   {/* Image Side */}
                   <div className="relative h-[400px] md:h-[500px] overflow-hidden bg-black">
@@ -523,13 +542,13 @@ const HomePage = () => {
                     <span className="text-purple-400 text-sm font-semibold tracking-widest mb-3">
                       {featuredProject.category}
                     </span>
-                    <h3 className="text-4xl md:text-5xl font-bold mb-4 group-hover:text-purple-400 transition-colors">
+                    <h3 className="text-4xl md:text-5xl font-bold mb-4">
                       {featuredProject.title}
                     </h3>
                     <p className="text-gray-400 text-lg leading-relaxed mb-6">
                       {featuredProject.description}
                     </p>
-                    <div className="flex flex-wrap gap-2 mb-6">
+                    <div className="flex flex-wrap gap-2 mb-8">
                       {featuredProject.tech.map((tech, i) => (
                         <span
                           key={i}
@@ -539,15 +558,50 @@ const HomePage = () => {
                         </span>
                       ))}
                     </div>
-                    <div className="flex items-center gap-2 text-purple-400 font-semibold group-hover:gap-4 transition-all">
-                      View Project
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
+
+                    {/* Dynamic Links */}
+                    <div className="flex flex-wrap gap-4">
+                      {featuredProject.liveUrl && (
+                        <a
+                          href={featuredProject.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition-all duration-300 hover:gap-3"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                          Live Demo
+                        </a>
+                      )}
+                      {featuredProject.github && (
+                        <a
+                          href={featuredProject.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-semibold rounded-lg border border-gray-700 hover:border-purple-500/50 transition-all duration-300"
+                        >
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                          </svg>
+                          GitHub
+                        </a>
+                      )}
+                      {featuredProject.title === "ReportIT" && (
+                        <button
+                          onClick={() => setShowReportITModal(true)}
+                          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold rounded-lg border border-purple-500 transition-all duration-300"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                          View Screenshots
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
-              </a>
+              </div>
             </motion.div>
           )}
 
@@ -560,11 +614,8 @@ const HomePage = () => {
               const rowSpan = isLarge ? "md:row-span-2" : "md:row-span-1";
 
               return (
-                <motion.a
+                <motion.div
                   key={idx}
-                  href={project.link}
-                  target={project.link.startsWith('http') ? "_blank" : "_self"}
-                  rel="noopener noreferrer"
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
@@ -596,7 +647,7 @@ const HomePage = () => {
                     <span className="text-purple-400 text-xs font-semibold tracking-wider mb-2 block">
                       {project.category}
                     </span>
-                    <h3 className={`font-bold mb-2 group-hover:text-purple-400 transition-colors ${isLarge ? 'text-2xl' : 'text-xl'
+                    <h3 className={`font-bold mb-2 transition-colors ${isLarge ? 'text-2xl' : 'text-xl'
                       }`}>
                       {project.title}
                     </h3>
@@ -604,7 +655,7 @@ const HomePage = () => {
                       }`}>
                       {project.description}
                     </p>
-                    <div className={`flex flex-wrap gap-2 transition-all duration-500 ${hoveredIndex === idx ? 'opacity-100 max-h-20 translate-y-0' : 'opacity-0 max-h-0 translate-y-4'
+                    <div className={`flex flex-wrap gap-2 mb-4 transition-all duration-500 ${hoveredIndex === idx ? 'opacity-100 max-h-20 translate-y-0' : 'opacity-0 max-h-0 translate-y-4'
                       }`}>
                       {project.tech.map((tech, i) => (
                         <span
@@ -615,8 +666,40 @@ const HomePage = () => {
                         </span>
                       ))}
                     </div>
+
+                    {/* Dynamic Links */}
+                    <div className={`flex flex-wrap gap-2 transition-all duration-500 ${hoveredIndex === idx ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                      {project.liveUrl && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white text-xs font-semibold rounded-lg transition-all duration-300"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                          Live Demo
+                        </a>
+                      )}
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-semibold rounded-lg border border-gray-700 hover:border-purple-500/50 transition-all duration-300"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                          </svg>
+                          GitHub
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </motion.a>
+                </motion.div>
               );
             })}
           </div>
@@ -842,6 +925,137 @@ const HomePage = () => {
       {/* FOOTER                                            */}
       {/* ================================================= */}
       <Footer />
+
+      {/* ================================================= */}
+      {/* REPORTIT SCREENSHOTS MODAL                        */}
+      {/* ================================================= */}
+      {showReportITModal && (
+        <div
+          className="fixed inset-0 bg-black/95 backdrop-blur-xl z-50 flex items-start justify-center p-4 md:p-8 overflow-y-auto"
+          onClick={() => setShowReportITModal(false)}
+        >
+          <motion.div
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.2 }}
+            className="relative w-full max-w-5xl my-8"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <div className="flex justify-end mb-4">
+              <button
+                onClick={() => setShowReportITModal(false)}
+                className="px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg font-medium transition-all duration-300 flex items-center gap-2 shadow-lg"
+              >
+                <span>Close</span>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="bg-zinc-900 rounded-2xl border border-purple-500/30 p-6 md:p-8 shadow-2xl shadow-purple-500/20">
+              {/* Header */}
+              <div className="mb-8">
+                <h2 className="text-4xl font-bold mb-3">
+                  <span className="bg-gradient-to-r from-purple-400 via-purple-300 to-purple-500 bg-clip-text text-transparent">
+                    ReportIT
+                  </span>
+                  {' '}Screenshots
+                </h2>
+                <p className="text-gray-400">
+                  Explore the mobile and admin interfaces of the civic issue reporting platform
+                </p>
+              </div>
+
+              {/* Tab Buttons */}
+              <div className="flex gap-4 mb-8">
+                <button
+                  onClick={() => setActiveTab('mobile')}
+                  className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${activeTab === 'mobile'
+                    ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/50'
+                    : 'bg-zinc-800 text-gray-400 hover:bg-zinc-700 border border-gray-700'
+                    }`}
+                >
+                  📱 Mobile App
+                </button>
+                <button
+                  onClick={() => setActiveTab('admin')}
+                  className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${activeTab === 'admin'
+                    ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/50'
+                    : 'bg-zinc-800 text-gray-400 hover:bg-zinc-700 border border-gray-700'
+                    }`}
+                >
+                  💼 Admin Dashboard
+                </button>
+              </div>
+
+              {/* Mobile Screenshots */}
+              {activeTab === 'mobile' && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="grid grid-cols-1 md:grid-cols-3 gap-6"
+                >
+                  {reportITMobileScreens.map((screen, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: idx * 0.1 }}
+                      className="group bg-white rounded-xl border border-gray-800 hover:border-purple-500/50 transition-all duration-300 overflow-hidden"
+                    >
+                      <div className="aspect-[9/16] overflow-hidden bg-white">
+                        <img
+                          src={screen.src}
+                          alt={screen.label}
+                          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                      <div className="p-4 bg-black">
+                        <h3 className="font-semibold text-white mb-1">{screen.label}</h3>
+                        <p className="text-sm text-purple-400">{screen.desc}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              )}
+
+              {/* Admin Screenshots */}
+              {activeTab === 'admin' && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                >
+                  {reportITAdminScreens.map((screen, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: idx * 0.1 }}
+                      className="group bg-white rounded-xl border border-gray-800 hover:border-purple-500/50 transition-all duration-300 overflow-hidden"
+                    >
+                      <div className="aspect-video overflow-hidden bg-white">
+                        <img
+                          src={screen.src}
+                          alt={screen.label}
+                          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                      <div className="p-4 bg-black">
+                        <h3 className="font-semibold text-white mb-1">{screen.label}</h3>
+                        <p className="text-sm text-purple-400">{screen.desc}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              )}
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 };
