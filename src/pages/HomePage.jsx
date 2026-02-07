@@ -5,12 +5,14 @@ import { TypeAnimation } from 'react-type-animation';
 import AboutSection from '../components/AboutSection.jsx';
 import FindMeOn from '../components/FindMeOn.jsx';
 import Footer from '../components/Footer.jsx';
+import Background from '../components/Background.jsx';
 
 const HomePage = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [filter, setFilter] = useState("All");
+  const [isMobile, setIsMobile] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -23,18 +25,27 @@ const HomePage = () => {
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      if (!isMobile) {
+        setMousePosition({ x: e.clientX, y: e.clientY });
+      }
     };
     const handleScroll = () => setScrollY(window.scrollY);
 
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', checkMobile);
+    checkMobile();
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', checkMobile);
     };
-  }, []);
+  }, [isMobile]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -166,59 +177,9 @@ const HomePage = () => {
   ];
 
   return (
-    <div className="relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        {/* Grid Pattern */}
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage: 'linear-gradient(rgba(139, 92, 246, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px)',
-            backgroundSize: '60px 60px',
-            transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`
-          }}
-        />
-
-        {/* Gradient Orbs */}
-        <motion.div
-          className="absolute w-[600px] h-[600px] bg-purple-600/20 rounded-full blur-3xl"
-          style={{
-            top: '10%',
-            right: '10%',
-            x: mousePosition.x * 0.03,
-            y: mousePosition.y * 0.03,
-          }}
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.2, 0.3, 0.2],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-
-        <motion.div
-          className="absolute w-[500px] h-[500px] bg-purple-400/20 rounded-full blur-3xl"
-          style={{
-            bottom: '20%',
-            left: '10%',
-            x: mousePosition.x * -0.02,
-            y: mousePosition.y * -0.02,
-          }}
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.2, 0.4, 0.2],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1
-          }}
-        />
-      </div>
+    <div className="relative overflow-hidden bg-transparent">
+      {/* Optimized Background */}
+      <Background mousePosition={mousePosition} isMobile={isMobile} />
 
       {/* ================================================= */}
       {/* HERO SECTION                                      */}
@@ -632,11 +593,15 @@ const HomePage = () => {
                   )}
 
                   {/* Image */}
-                  <div className={`relative overflow-hidden bg-black ${isLarge ? 'h-64' : 'h-48'}`}>
+                  <div className={`relative overflow-hidden bg-zinc-950 ${isLarge ? 'h-64' : 'h-48'}`}>
                     <img
                       src={project.image}
                       alt={project.title}
+                      loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      onError={(e) => {
+                        e.target.src = "https://via.placeholder.com/800x600?text=Project+Image";
+                      }}
                     />
                     <div className={`absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/30 transition-opacity duration-500 ${hoveredIndex === idx ? 'opacity-95' : 'opacity-0'
                       }`}></div>
